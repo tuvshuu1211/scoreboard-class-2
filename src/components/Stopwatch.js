@@ -1,19 +1,26 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-class Stopwatch extends React.Component {
+class Stopwatch extends Component {
 
     state = {
         isRunning: false,
-        time: 0
+        elapsedTime: 0,
+        previousTime: 0
     }
 
     componentDidMount(){
         this.intervalID = setInterval( ()=> this.tick(), 100)
     }
+    componentWillUnmount(){
+        clearInterval(this.intervalID)
+    }
+
     tick = () => {
         if(this.state.isRunning){
+            const now = Date.now()
             this.setState(prevState => ({
-                time: prevState.time += 1
+                previousTime: now,
+                elapsedTime: prevState.elapsedTime + (now - prevState.previousTime)
             }))
         }
     }
@@ -22,16 +29,30 @@ class Stopwatch extends React.Component {
         this.setState(prevState => ({
             isRunning: !prevState.isRunning
         }))
+        if(!this.state.isRunning){
+            console.log('button starting...')
+            this.setState({
+                previousTime: Date.now()
+            })
+        }
+    }
+    handleReset = () =>{
+        this.setState({
+            elapsedTime: 0,
+            isRunning: false
+        })
     }
     render(){
+        const seconds = Math.floor(this.state.elapsedTime / 100)
+        
         return(
             <div className="stopwatch">
                 <h2>Stopwatch</h2>
-                <span className='stopwatch-time'>{this.state.time}</span>
+                <span className='stopwatch-time'>{seconds}</span>
                 <button onClick={this.handleStopwatch}>
                     {this.state.isRunning ? 'Stop' : 'Start'}
                 </button>
-                <button>Reset</button>
+                <button onClick={this.handleReset}>Reset</button>
             </div>
         )
     }

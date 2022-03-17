@@ -7,6 +7,7 @@ import './App.css';
 class App extends React.Component{
   
   state = {
+      
       players: [
           {
               name: 'Enkhtuvshin',
@@ -62,12 +63,12 @@ class App extends React.Component{
       })
   }
 
-  handleAddPlayer = (name) => {
+  handleAddPlayer = (username) => {
     this.setState({
         players: [
             ...this.state.players,
             {
-                name: name,
+                name: username,
                 score: 0,
                 id: this.playersId += 1
             }
@@ -79,8 +80,7 @@ class App extends React.Component{
       return(
           <div className="scoreboard">
   
-              <Header 
-                  title='Scoreboard' 
+              <Header  
                   totalPlayers={this.state.players.length} 
                   players={this.state.players}
               />

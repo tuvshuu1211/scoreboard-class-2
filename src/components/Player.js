@@ -1,17 +1,30 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import Counter from './Counter'
+import propTypes from 'prop-types'
 
-const Player = (props)=> {
-    return(
-        <div className="player">
-            
-            <div className="player-name">
-                <button onClick={() => props.removePlayer(props.id)} className="remove-player">✖</button>
-                {props.name}
+class Player extends PureComponent {
+
+    static propTypes = {
+        changeScore: propTypes.func,
+        removePlayer: propTypes.func,
+        name: propTypes.string.isRequired,
+        score: propTypes.number.isRequired,
+        id: propTypes.number,
+        index: propTypes.number
+    }
+
+    render(){
+        const { name, id,  score,  index,  changeScore, removePlayer } = this.props     
+        return(
+            <div className="player">
+                <div className="player-name">
+                    <button onClick={() => removePlayer(id)} className="remove-player">✖</button>
+                    {name}
+                </div>
+                <Counter index={index} score= {score} changeScore = {changeScore}/>
             </div>
-            <Counter index={props.index} score= {props.score} changeScore = {props.changeScore}/>
-        </div>
-    )
+        )
+    }
   }
 
 export default Player
