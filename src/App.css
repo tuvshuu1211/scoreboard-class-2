@@ -34,6 +34,25 @@ form {
   background-color: #8063FA;
 }
 
+form.playerForm{
+  background: transparent;
+  display: inline-block;
+}
+input.playerUserName{
+  background-color: white !important;
+  font-size: 1rem;
+  color: black !important;
+  cursor: pointer;
+  width: 100%;
+}
+input.playerUserName:enabled{
+  background-color: #f1effa !important;
+  border: 1px solid #5B45B9 !important;
+}
+input.playerUserName:disabled{
+  border: none;
+}
+
 input[type=text] {
   flex-grow: 1;
   border-width: 0 0 1px 0;
@@ -48,6 +67,8 @@ input[type=text] {
   letter-spacing: 2px;
   outline: none;
 }
+
+
 
 input[type=text]::-webkit-input-placeholder{
   color: #C7BCF8;

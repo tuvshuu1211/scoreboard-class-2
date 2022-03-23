@@ -1,28 +1,63 @@
 import React, {PureComponent} from 'react'
 import Counter from './Counter'
-import propTypes from 'prop-types'
+import Icon from './Icon'
+import {Consumer} from './Context'
 
 class Player extends PureComponent {
 
-    static propTypes = {
-        changeScore: propTypes.func,
-        removePlayer: propTypes.func,
-        name: propTypes.string.isRequired,
-        score: propTypes.number.isRequired,
-        id: propTypes.number,
-        index: propTypes.number
+    state= {
+        name: this.props.name
     }
 
+    changeName = (e) =>{
+        e.target.disabled = false
+        e.target.focus()
+    }
+    changeNameDisable = (e) =>{
+        e.target.disabled = true
+    }
+
+    handleChangeName = (e) =>{
+        this.setState({
+            name: e.target.value
+        })
+    }
+    
+
     render(){
-        const { name, id,  score,  index,  changeScore, removePlayer } = this.props     
+        const { id, index } = this.props     
         return(
-            <div className="player">
-                <div className="player-name">
-                    <button onClick={() => removePlayer(id)} className="remove-player">✖</button>
-                    {name}
-                </div>
-                <Counter index={index} score= {score} changeScore = {changeScore}/>
-            </div>
+            <Consumer>
+                {value=>{
+                    const handleNameSubmit = (e)=>{
+                        e.preventDefault()
+                        value.actions.editName(this.state.name, index)
+                        e.target.children[0].children[0].disabled = true
+                    }
+                    return(
+                        <div className="player">
+                            <div className="player-name">
+                                <button onClick={() => value.actions.removePlayer(id)} className="remove-player">✖</button>
+                                <Icon isHighscore={this.props.highscore} />
+
+                                <form onSubmit={handleNameSubmit} className='playerForm'>
+                                    <span onClick={this.changeName}>
+                                        <input 
+                                            type="text" 
+                                            className='playerUserName'
+                                            value={this.state.name} 
+                                            onChange={this.handleChangeName}
+                                            disabled
+                                            onBlur={this.changeNameDisable}
+                                            />
+                                    </span>
+                                </form>
+                            </div>
+                            <Counter index={index}/>
+                        </div>
+                    )
+                }}
+            </Consumer>
         )
     }
   }
