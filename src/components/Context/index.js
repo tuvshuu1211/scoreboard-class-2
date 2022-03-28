@@ -111,9 +111,8 @@ export class Hangagch extends React.Component{
                 },
                 highscore: highscore
             }}>
-                    
-                    {this.props.children}
 
+                    {this.props.children}
 
             </Provider>
         )

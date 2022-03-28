@@ -13,9 +13,6 @@ class Player extends PureComponent {
         e.target.disabled = false
         e.target.focus()
     }
-    changeNameDisable = (e) =>{
-        e.target.disabled = true
-    }
 
     handleChangeName = (e) =>{
         this.setState({
@@ -32,12 +29,18 @@ class Player extends PureComponent {
                     const handleNameSubmit = (e)=>{
                         e.preventDefault()
                         value.actions.editName(this.state.name, index)
+                        
                         e.target.children[0].children[0].disabled = true
                     }
                     return(
                         <div className="player">
                             <div className="player-name">
-                                <button onClick={() => value.actions.removePlayer(id)} className="remove-player">✖</button>
+
+                                <button onClick={ () => 
+                                    value.actions.removePlayer(id)} 
+                                    className="remove-player"
+                                >✖</button>
+
                                 <Icon isHighscore={this.props.highscore} />
 
                                 <form onSubmit={handleNameSubmit} className='playerForm'>
@@ -48,7 +51,7 @@ class Player extends PureComponent {
                                             value={this.state.name} 
                                             onChange={this.handleChangeName}
                                             disabled
-                                            onBlur={this.changeNameDisable}
+                                            onBlur={ e => e.target.disabled = true} 
                                             />
                                     </span>
                                 </form>
