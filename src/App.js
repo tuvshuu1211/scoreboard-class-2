@@ -1,5 +1,4 @@
 import React from 'react'
-import Player from './components/Player'
 import Header from './components/Header'
 import AddPlayer from './components/AddPlayer'
 import './App.css';

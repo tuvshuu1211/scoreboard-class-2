@@ -10,7 +10,7 @@ const AddPlayer = () => {
             {value=>{
                 const handleSubmit = (e) =>{
                     e.preventDefault()
-                    if(inputValue.current.value != ''){
+                    if(inputValue.current.value !== ''){
                         value.actions.handleAddPlayer(inputValue.current.value)
                     }
                     e.currentTarget.reset()

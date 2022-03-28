@@ -56,7 +56,7 @@ export class Hangagch extends React.Component{
     removePlayer = (paraID) => {
         this.setState( prevState => {
             return {
-                players: prevState.players.filter(p => p.id != paraID)
+                players: prevState.players.filter(p => p.id !== paraID)
             }
         })
     }
